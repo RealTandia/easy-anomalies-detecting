@@ -1,0 +1,163 @@
+language: cn #必填。
+model_unique_abbr: easy_detecting
+version: v0.1 #必填。
+
+identification:
+  docker_image_name: "easy_detecting:1.0"
+  docker_run_prefix: /test/run.py
+  model_name: easy_detecting
+  semantic: easy detecting
+  category_application: 诊断型
+  category_data:
+    - 时空流数据
+  description: 基于时空邻域的异常检测
+  keywords: #选填。基于该模型的参考文献，凝练填写
+    - 时空邻域
+    - 交通流
+
+
+parameter_info:
+  parameters:
+    - arg_name: distance-dataset
+      is_run_arg: true
+      is_positional_arg: false
+      is_single_en_dash: false
+      param_type: input_data
+      visible: false
+      name: 距离数据集
+      description: 距离数据集文件路径
+      is_required: true #选填。不填则默认为true
+      data_type: csv
+      data_semantic: 先填参数英文名 #选填。参数语义，与参数中文名对应，注意不是参数标识名
+      param_switches: #选填。指明前端显示时，当前参数在何种情况下才显示。各arg之间是and关系。
+      specification: #选填。参数规格
+        param_examples: ./data/PEMS04/distance.csv
+        param_check_file_path: "./run.py"
+    - arg_name: traffic-flow-dataset
+      is_run_arg: true
+      is_positional_arg: false
+      is_single_en_dash: false
+      param_type: input_data
+      visible: false
+      name: 交通流数据集
+      description: 交通流数据集文件路径
+      is_required: true #选填。不填则默认为true
+      data_type: npz
+      data_semantic: traffic flow dataset
+      specification:
+        param_examples: ./data/PEMS04/pems04.npz
+        param_check_file_path: "./run.py"
+    - arg_name: time-interval
+      is_run_arg: true
+      is_positional_arg: false
+      is_single_en_dash: false
+      param_type: input_data
+      visible: false
+      name: 采样间隔
+      description: 交通流数据集的采样间隔
+      is_required: true #选填。不填则默认为true
+      data_type: int
+      data_semantic: time interval
+      param_switches: #选填。指明前端显示时，当前参数在何种情况下才显示。各arg之间是and关系。
+      specification: #选填。参数规格
+        param_examples: 300
+        param_check_file_path: "./run.py"
+    - arg_name: times
+      is_run_arg: true
+      is_positional_arg: false
+      is_single_en_dash: false
+      param_type: input_data
+      visible: false
+      name: 次数
+      description: 距离数据集文件路径
+      is_required: true #选填。不填则默认为true
+      data_type: int
+      data_semantic: times
+      specification: #选填。参数规格
+        param_examples: 600
+        param_check_file_path: "./run.py"
+    - arg_name: roads
+      is_run_arg: true
+      is_positional_arg: false
+      is_single_en_dash: false
+      param_type: input_data
+      visible: false
+      name: 路径数
+      description: 参与计算的路径数
+      is_required: true
+      data_type: int
+      data_semantic: road number
+      specification:
+        param_examples: ./data/PEMS04/distance.csv
+        param_check_file_path: "./run.py"
+    - arg_name: model
+      is_run_arg: true
+      is_positional_arg: false
+      is_single_en_dash: false
+      param_type: param
+      visible: false
+      name: 模型名
+      description: 选择的模型名
+      is_required: true #选填。不填则默认为true
+      data_type: string
+      data_semantic: model
+      specification:
+        param_examples: easy_detecting
+        param_check_file_path: "./run.py"
+    - arg_name: k
+      is_run_arg: true
+      is_positional_arg: false
+      is_single_en_dash: false
+      param_type: param
+      visible: false
+      name: 时空流比率
+      description: 前置位置与后置位置的时空流比率
+      is_required: true #选填。不填则默认为true
+      data_type: float
+      data_semantic: k
+      specification:
+        param_examples: 0.5
+        param_check_file_path: "./run.py"
+
+
+application:
+  domain: 异常检测
+  objective: 异常检测
+  link_models: #关联模型
+    preorder: [] #上游模型（填写model_unique_abbr），即当前模型的输入模型
+    alternative: []
+  dimension: [] #空间维度
+  timestep: [] #时间步长
+  spatial_resolution: [] #空间分辨率
+  spatial_reference: [] #投影坐标系
+  mechanism:
+
+operation:
+  usage:
+  exec_example: #使用示例
+    - python run.py
+  output_display:
+    - 绘制时间轴上各路段的拥堵状况
+  license: [] #许可证
+  tips: #注意事项
+
+technique:
+  language: [python] #开发语言
+  os: [Windows,Linux,MacOS] #操作系统
+  parallel: [multiprocessor] #并行方式
+  hardware: [CPU,GPU] #硬件要求
+  dependencies:
+    - name: 库名
+      version: 库版本
+
+source:
+  maintainer: 维护者
+  organization: 组织名称
+  contact: 联系方式
+  repository: 代码仓库地址
+  integrated_softwares:
+    - name: 库名
+      version: 库版本
+      license: 库许可证
+  references:
+    - somewhat1
